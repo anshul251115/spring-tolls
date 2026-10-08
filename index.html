@@ -1,0 +1,2714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Spring Tools</title>
+
+<meta name="description"
+      content="State of the art open source Spring tooling for your favorite coding environment.">
+
+<style>
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    background: #ffffff;
+    color: #1d1d1f;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+    --spring-green: #6db33f;
+    --spring-dark: #34302d;
+    --spring-black: #1f1f1f;
+    --light-bg: #f5f6f7;
+    --lighter-bg: #fafafa;
+    --border: #dedede;
+    --text: #333333;
+    --muted: #707070;
+    --white: #ffffff;
+    --shadow: 0 10px 35px rgba(0,0,0,.08);
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+
+    height: 72px;
+
+    background: rgba(255,255,255,.96);
+    backdrop-filter: blur(12px);
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+.navbar {
+    max-width: 1200px;
+    height: 72px;
+
+    margin: auto;
+    padding: 0 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    color: var(--spring-dark);
+}
+
+.logo-mark {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--spring-green);
+    color: white;
+
+    border-radius: 50%;
+
+    font-size: 19px;
+    font-weight: 900;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+
+    color: #444;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.nav-links a {
+    transition: .2s;
+}
+
+.nav-links a:hover {
+    color: var(--spring-green);
+}
+
+.menu-button {
+    display: none;
+
+    border: none;
+    background: transparent;
+
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f6f8f5 0%,
+            #ffffff 48%,
+            #f2f7ef 100%
+        );
+
+    padding: 110px 20px 100px;
+}
+
+.hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    background: rgba(109,179,63,.08);
+
+    top: -250px;
+    right: -150px;
+}
+
+.hero-content {
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+
+    align-items: center;
+    gap: 70px;
+
+    position: relative;
+    z-index: 2;
+}
+
+.eyebrow {
+    display: inline-block;
+
+    padding: 7px 13px;
+
+    border-radius: 30px;
+
+    background: rgba(109,179,63,.12);
+
+    color: #4d8d2d;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: clamp(42px, 6vw, 70px);
+
+    line-height: 1.05;
+
+    letter-spacing: -2px;
+
+    color: #292725;
+
+    margin-bottom: 25px;
+}
+
+.hero h1 span {
+    color: var(--spring-green);
+}
+
+.hero p {
+    max-width: 650px;
+
+    font-size: 19px;
+
+    color: #656565;
+
+    margin-bottom: 32px;
+}
+
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 48px;
+
+    padding: 0 22px;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    border: 1px solid transparent;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s,
+        box-shadow .2s,
+        background .2s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background: var(--spring-green);
+    color: white;
+
+    box-shadow: 0 8px 20px rgba(109,179,63,.25);
+}
+
+.btn-primary:hover {
+    background: #5f9e35;
+}
+
+.btn-outline {
+    border-color: #bfc4c0;
+
+    background: white;
+
+    color: #34302d;
+}
+
+.btn-outline:hover {
+    border-color: var(--spring-green);
+    color: var(--spring-green);
+}
+
+/* =========================================================
+   HERO VISUAL
+========================================================= */
+
+.hero-visual {
+    display: flex;
+    justify-content: center;
+}
+
+.code-window {
+    width: 100%;
+    max-width: 480px;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    background: #252525;
+
+    box-shadow: 0 25px 60px rgba(0,0,0,.18);
+
+    transform: rotate(1deg);
+}
+
+.window-top {
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 15px;
+
+    background: #333;
+
+    gap: 7px;
+}
+
+.window-dot {
+    width: 11px;
+    height: 11px;
+
+    border-radius: 50%;
+
+    background: #777;
+}
+
+.window-title {
+    margin-left: 8px;
+
+    color: #aaa;
+
+    font-size: 12px;
+}
+
+.code-body {
+    padding: 25px;
+
+    min-height: 330px;
+
+    font-family:
+        Consolas,
+        Monaco,
+        "Courier New",
+        monospace;
+
+    font-size: 13px;
+
+    color: #ddd;
+
+    overflow: hidden;
+}
+
+.code-line {
+    margin-bottom: 9px;
+}
+
+.code-green {
+    color: #8bc34a;
+}
+
+.code-blue {
+    color: #6cb6ff;
+}
+
+.code-yellow {
+    color: #ffd166;
+}
+
+.code-gray {
+    color: #777;
+}
+
+/* =========================================================
+   TOOL TABS
+========================================================= */
+
+.tools-section {
+    padding: 85px 20px;
+
+    background: white;
+}
+
+.container {
+    width: min(1120px, 100%);
+
+    margin: auto;
+}
+
+.section-title {
+    text-align: center;
+
+    margin-bottom: 55px;
+}
+
+.section-title h2 {
+    font-size: clamp(32px, 5vw, 48px);
+
+    color: #302e2c;
+
+    margin-bottom: 13px;
+}
+
+.section-title p {
+    color: var(--muted);
+
+    max-width: 650px;
+
+    margin: auto;
+}
+
+.tool-tabs {
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-bottom: 35px;
+}
+
+.tool-tab {
+    padding: 12px 19px;
+
+    border: 1px solid var(--border);
+
+    background: white;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    color: #555;
+
+    font-weight: 600;
+
+    transition: .2s;
+}
+
+.tool-tab:hover,
+.tool-tab.active {
+    background: var(--spring-green);
+
+    border-color: var(--spring-green);
+
+    color: white;
+}
+
+/* =========================================================
+   TOOL CARDS
+========================================================= */
+
+.tool-panel {
+    display: none;
+}
+
+.tool-panel.active {
+    display: block;
+    animation: fadeIn .35s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tool-card {
+    background: var(--lighter-bg);
+
+    border: 1px solid #e5e5e5;
+
+    border-radius: 10px;
+
+    padding: 42px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 45px;
+
+    align-items: center;
+}
+
+.tool-card h3 {
+    font-size: 30px;
+
+    margin-bottom: 12px;
+
+    color: #34302d;
+}
+
+.tool-card p {
+    color: #666;
+
+    margin-bottom: 25px;
+}
+
+.platform-buttons {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+.platform-btn {
+    padding: 10px 15px;
+
+    border: 1px solid #d4d4d4;
+
+    border-radius: 5px;
+
+    background: white;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.platform-btn:hover {
+    border-color: var(--spring-green);
+
+    color: var(--spring-green);
+}
+
+/* =========================================================
+   MOCK IDE
+========================================================= */
+
+.ide-preview {
+    min-height: 280px;
+
+    background: #292929;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    box-shadow: var(--shadow);
+}
+
+.ide-bar {
+    height: 35px;
+
+    background: #3b3b3b;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 12px;
+
+    gap: 6px;
+}
+
+.ide-dot {
+    width: 9px;
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: #777;
+}
+
+.ide-content {
+    padding: 20px;
+
+    font-family: monospace;
+
+    font-size: 12px;
+
+    color: #ddd;
+}
+
+.ide-line {
+    margin-bottom: 7px;
+}
+
+.ide-green {
+    color: #9ccc65;
+}
+
+.ide-blue {
+    color: #64b5f6;
+}
+
+.ide-orange {
+    color: #ffb74d;
+}
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.features {
+    padding: 100px 20px;
+
+    background: #f5f6f7;
+}
+
+.feature-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+.feature-card {
+    background: white;
+
+    padding: 35px;
+
+    border-radius: 9px;
+
+    border: 1px solid #e6e6e6;
+
+    transition: .25s;
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow: var(--shadow);
+}
+
+.feature-icon {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: rgba(109,179,63,.12);
+
+    color: var(--spring-green);
+
+    font-size: 25px;
+
+    margin-bottom: 22px;
+}
+
+.feature-card h3 {
+    font-size: 22px;
+
+    margin-bottom: 12px;
+
+    color: #333;
+}
+
+.feature-card p {
+    color: #707070;
+
+    font-size: 15px;
+}
+
+/* =========================================================
+   AI SECTION
+========================================================= */
+
+.ai-section {
+    padding: 100px 20px;
+
+    background: white;
+}
+
+.ai-layout {
+    display: grid;
+
+    grid-template-columns: .9fr 1.1fr;
+
+    gap: 70px;
+
+    align-items: center;
+}
+
+.ai-box {
+    padding: 45px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f1f7ed,
+            #ffffff
+        );
+
+    border: 1px solid #dce9d7;
+
+    border-radius: 14px;
+}
+
+.ai-box h2 {
+    font-size: 42px;
+
+    line-height: 1.15;
+
+    margin-bottom: 18px;
+}
+
+.ai-box h2 span {
+    color: var(--spring-green);
+}
+
+.ai-box p {
+    color: #666;
+
+    margin-bottom: 25px;
+}
+
+.check-list {
+    list-style: none;
+}
+
+.check-list li {
+    margin: 13px 0;
+
+    color: #444;
+
+    font-weight: 500;
+}
+
+.check-list li::before {
+    content: "✓";
+
+    color: var(--spring-green);
+
+    font-weight: 900;
+
+    margin-right: 10px;
+}
+
+/* =========================================================
+   ECLIPSE DOWNLOAD SECTION
+========================================================= */
+
+.eclipse-section {
+    padding: 100px 20px;
+
+    background: #34302d;
+
+    color: white;
+}
+
+.eclipse-header {
+    text-align: center;
+
+    margin-bottom: 50px;
+}
+
+.eclipse-header h2 {
+    font-size: clamp(34px, 5vw, 50px);
+
+    margin-bottom: 12px;
+}
+
+.eclipse-header p {
+    color: #d4d1cf;
+
+    max-width: 650px;
+
+    margin: auto;
+}
+
+.download-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 14px;
+}
+
+.download-card {
+    padding: 25px 15px;
+
+    background: rgba(255,255,255,.07);
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    border-radius: 8px;
+
+    text-align: center;
+
+    transition: .2s;
+}
+
+.download-card:hover {
+    background: rgba(255,255,255,.12);
+
+    transform: translateY(-4px);
+}
+
+.os-icon {
+    font-size: 31px;
+
+    margin-bottom: 12px;
+}
+
+.download-card h4 {
+    font-size: 15px;
+
+    margin-bottom: 6px;
+}
+
+.download-card p {
+    font-size: 12px;
+
+    color: #bbb;
+
+    margin-bottom: 16px;
+}
+
+.download-card a {
+    display: inline-block;
+
+    padding: 8px 13px;
+
+    border-radius: 4px;
+
+    background: var(--spring-green);
+
+    color: white;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+/* =========================================================
+   GETTING STARTED
+========================================================= */
+
+.getting-started {
+    padding: 100px 20px;
+
+    background: #f5f6f7;
+}
+
+.start-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+.start-card {
+    padding: 35px;
+
+    background: white;
+
+    border: 1px solid #e3e3e3;
+
+    border-radius: 10px;
+}
+
+.start-number {
+    font-size: 13px;
+
+    color: var(--spring-green);
+
+    font-weight: 800;
+
+    margin-bottom: 15px;
+}
+
+.start-card h3 {
+    margin-bottom: 12px;
+
+    font-size: 21px;
+}
+
+.start-card p {
+    color: #707070;
+
+    font-size: 14px;
+}
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.cta {
+    padding: 95px 20px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6db33f,
+            #4d8d2d
+        );
+
+    color: white;
+}
+
+.cta h2 {
+    font-size: clamp(34px, 5vw, 50px);
+
+    margin-bottom: 15px;
+}
+
+.cta p {
+    max-width: 650px;
+
+    margin: 0 auto 30px;
+
+    color: rgba(255,255,255,.88);
+}
+
+.cta .btn-outline {
+    background: white;
+
+    border-color: white;
+
+    color: #3c6930;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    background: #292725;
+
+    color: white;
+
+    padding: 65px 20px 25px;
+}
+
+.footer-grid {
+    max-width: 1120px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        1.5fr 1fr 1fr 1fr;
+
+    gap: 45px;
+}
+
+.footer-brand h3 {
+    font-size: 24px;
+
+    margin-bottom: 13px;
+}
+
+.footer-brand p {
+    color: #aaa;
+
+    max-width: 340px;
+
+    font-size: 14px;
+}
+
+.footer-column h4 {
+    font-size: 14px;
+
+    margin-bottom: 18px;
+}
+
+.footer-column a {
+    display: block;
+
+    color: #aaa;
+
+    font-size: 13px;
+
+    margin: 9px 0;
+
+    transition: .2s;
+}
+
+.footer-column a:hover {
+    color: var(--spring-green);
+}
+
+.footer-bottom {
+    max-width: 1120px;
+
+    margin: 50px auto 0;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #454240;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    color: #888;
+
+    font-size: 12px;
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+    position: fixed;
+
+    right: 20px;
+    bottom: 20px;
+
+    z-index: 10000;
+
+    padding: 14px 18px;
+
+    background: #292725;
+
+    color: white;
+
+    border-left: 4px solid var(--spring-green);
+
+    border-radius: 6px;
+
+    box-shadow: 0 10px 35px rgba(0,0,0,.2);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transform: translateY(20px);
+
+    transition: .3s;
+}
+
+.toast.show {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 950px) {
+
+    .nav-links {
+        position: absolute;
+
+        top: 72px;
+        left: 0;
+        right: 0;
+
+        display: none;
+
+        flex-direction: column;
+
+        padding: 20px;
+
+        background: white;
+
+        border-bottom: 1px solid #ddd;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .menu-button {
+        display: block;
+    }
+
+    .hero-content {
+        grid-template-columns: 1fr;
+
+        text-align: center;
+    }
+
+    .hero p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero-visual {
+        margin-top: 20px;
+    }
+
+    .feature-grid,
+    .start-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .download-grid {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+    .tool-card {
+        grid-template-columns: 1fr;
+    }
+
+    .ai-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .hero {
+        padding-top: 75px;
+        padding-bottom: 70px;
+    }
+
+    .hero h1 {
+        font-size: 43px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .feature-grid,
+    .start-grid,
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .download-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .tool-card {
+        padding: 25px;
+    }
+
+    .ai-box {
+        padding: 30px;
+    }
+
+    .ai-box h2 {
+        font-size: 34px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+    }
+
+    .code-window {
+        transform: none;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .download-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <nav class="navbar">
+
+        <a href="#" class="logo">
+
+            <span class="logo-mark">S</span>
+
+            <span>Spring Tools</span>
+
+        </a>
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            aria-label="Open menu">
+
+            ☰
+
+        </button>
+
+        <div class="nav-links" id="navLinks">
+
+            <a href="#tools">Tools</a>
+
+            <a href="#features">Features</a>
+
+            <a href="#eclipse">Eclipse</a>
+
+            <a href="#getting-started">Getting Started</a>
+
+            <a
+                href="https://spring.io/"
+                target="_blank">
+                Spring.io
+            </a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div>
+
+            <span class="eyebrow">
+                OPEN SOURCE SPRING TOOLING
+            </span>
+
+            <h1>
+                Build with
+                <span>Spring.</span>
+                Code smarter.
+            </h1>
+
+            <p>
+                State-of-the-art Spring tooling for your favorite
+                coding environment. Develop Spring-based applications
+                with powerful assistance built directly into your IDE.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a
+                    class="btn btn-primary"
+                    href="#tools">
+                    Explore Tools
+                </a>
+
+                <a
+                    class="btn btn-outline"
+                    href="#eclipse">
+                    Download for Eclipse
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-visual">
+
+            <div class="code-window">
+
+                <div class="window-top">
+
+                    <span class="window-dot"></span>
+                    <span class="window-dot"></span>
+                    <span class="window-dot"></span>
+
+                    <span class="window-title">
+                        SpringApplication.java
+                    </span>
+
+                </div>
+
+                <div class="code-body">
+
+                    <div class="code-line code-gray">
+                        package com.example.demo;
+                    </div>
+
+                    <br>
+
+                    <div class="code-line">
+                        <span class="code-blue">@SpringBootApplication</span>
+                    </div>
+
+                    <div class="code-line">
+                        <span class="code-blue">public class</span>
+                        <span class="code-yellow">
+                            Application
+                        </span>
+                    </div>
+
+                    <div class="code-line">
+                        {
+                    </div>
+
+                    <br>
+
+                    <div class="code-line">
+                        &nbsp;&nbsp;
+                        <span class="code-blue">public static void</span>
+                        <span class="code-green">
+                            main
+                        </span>
+                        (String[] args) {
+                    </div>
+
+                    <div class="code-line">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        SpringApplication
+                    </div>
+
+                    <div class="code-line">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        .run(Application.class, args);
+                    </div>
+
+                    <div class="code-line">
+                        &nbsp;&nbsp;}
+                    </div>
+
+                    <div class="code-line">
+                        }
+                    </div>
+
+                    <br>
+
+                    <div class="code-line code-gray">
+                        // Spring Tools understands your code
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TOOLS
+===================================================== -->
+
+<section
+    class="tools-section"
+    id="tools">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+                Your tools. Your environment.
+            </h2>
+
+            <p>
+                Spring Tools supports multiple modern coding
+                environments, so you can continue working in
+                the environment you prefer.
+            </p>
+
+        </div>
+
+
+        <div class="tool-tabs">
+
+            <button
+                class="tool-tab active"
+                data-target="eclipse-panel">
+                Eclipse
+            </button>
+
+            <button
+                class="tool-tab"
+                data-target="vscode-panel">
+                Visual Studio Code
+            </button>
+
+            <button
+                class="tool-tab"
+                data-target="cursor-panel">
+                Cursor
+            </button>
+
+            <button
+                class="tool-tab"
+                data-target="claude-panel">
+                Claude Code
+            </button>
+
+            <button
+                class="tool-tab"
+                data-target="theia-panel">
+                Theia
+            </button>
+
+        </div>
+
+
+        <!-- ECLIPSE -->
+
+        <div
+            class="tool-panel active"
+            id="eclipse-panel">
+
+            <div class="tool-card">
+
+                <div>
+
+                    <h3>
+                        Spring Tools for Eclipse
+                    </h3>
+
+                    <p>
+                        A full-featured Eclipse-based environment
+                        with deep Spring Framework and Spring Boot
+                        support.
+                    </p>
+
+                    <div class="platform-buttons">
+
+                        <a
+                            class="platform-btn"
+                            href="#eclipse">
+                            Windows
+                        </a>
+
+                        <a
+                            class="platform-btn"
+                            href="#eclipse">
+                            Linux
+                        </a>
+
+                        <a
+                            class="platform-btn"
+                            href="#eclipse">
+                            macOS
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ide-preview">
+
+                    <div class="ide-bar">
+
+                        <span class="ide-dot"></span>
+                        <span class="ide-dot"></span>
+                        <span class="ide-dot"></span>
+
+                    </div>
+
+                    <div class="ide-content">
+
+                        <div class="ide-line">
+                            <span class="ide-blue">
+                                @RestController
+                            </span>
+                        </div>
+
+                        <div class="ide-line">
+                            <span class="ide-blue">
+                                public class
+                            </span>
+                            DemoController {
+                        </div>
+
+                        <br>
+
+                        <div class="ide-line">
+                            &nbsp;&nbsp;
+                            <span class="ide-orange">
+                                @GetMapping
+                            >("/hello")
+                        </div>
+
+                        <div class="ide-line">
+                            &nbsp;&nbsp;
+                            <span class="ide-blue">
+                                public
+                            </span>
+                            String hello() {
+                        </div>
+
+                        <div class="ide-line">
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="ide-green">
+                                return
+                            </span>
+                            "Hello Spring!";
+                        </div>
+
+                        <div class="ide-line">
+                            &nbsp;&nbsp;}
+                        </div>
+
+                        <div class="ide-line">
+                            }
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- VS CODE -->
+
+        <div
+            class="tool-panel"
+            id="vscode-panel">
+
+            <div class="tool-card">
+
+                <div>
+
+                    <h3>
+                        Spring Tools for VS Code
+                    </h3>
+
+                    <p>
+                        Add powerful Spring Boot development
+                        capabilities directly to Visual Studio Code.
+                    </p>
+
+                    <a
+                        class="btn btn-primary"
+                        href="https://marketplace.visualstudio.com/items?itemName=vmware.vscode-boot-dev-pack"
+                        target="_blank">
+                        Open Marketplace
+                    </a>
+
+                </div>
+
+                <div class="ide-preview">
+
+                    <div class="ide-bar">
+
+                        <span class="ide-dot"></span>
+                        <span class="ide-dot"></span>
+                        <span class="ide-dot"></span>
+
+                    </div>
+
+                    <div class="ide-content">
+
+                        <div class="ide-line">
+                            Spring Boot
+                        </div>
+
+                        <br>
+
+                        <div class="ide-line ide-green">
+                            ✓ Project detected
+                        </div>
+
+                        <div class="ide-line ide-green">
+                            ✓ Spring configuration
+                        </div>
+
+                        <div class="ide-line ide-green">
+                            ✓ Code completion
+                        </div>
+
+                        <div class="ide-line ide-green">
+                            ✓ Boot dashboard
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CURSOR -->
+
+        <div
+            class="tool-panel"
+            id="cursor-panel">
+
+            <div class="tool-card">
+
+                <div>
+
+                    <h3>
+                        Spring Tools for Cursor
+                    </h3>
+
+                    <p>
+                        Combine Spring-aware development tooling
+                        with an AI-powered coding environment.
+                    </p>
+
+                    <a
+                        class="btn btn-primary"
+                        href="https://open-vsx.org/"
+                        target="_blank">
+                        Open VSX Registry
+                    </a>
+
+                </div>
+
+                <div class="ide-preview">
+
+                    <div class="ide-bar">
+
+                        <span class="ide-dot"></span>
+                        <span class="ide-dot"></span>
+                        <span class="ide-dot"></span>
+
+                    </div>
+
+                    <div class="ide-content">
+
+                        <div class="ide-line">
+                            AI Coding Environment
+                        </div>
+
+                        <br>
+
+                        <div class="ide-line ide-blue">
+                            Spring-aware context
+                        </div>
+
+                        <div class="ide-line ide-green">
+                            Intelligent completion
+                        </div>
+
+                        <div class="ide-line ide-orange">
+                            Project understanding
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CLAUDE -->
+
+        <div
+            class="tool-panel"
+            id="claude-panel">
+
+            <div class="tool-card">
+
+                <div>
+
+                    <h3>
+                        Spring Tools for Claude Code
+                    </h3>
+
+                    <p>
+                        Spring-specific context, project analytics,
+                        skills and tooling for AI-assisted development.
+                    </p>
+
+                    <a
+                        class="btn btn-primary"
+                        href="https://github.com/spring-projects/spring-tools"
+                        target="_blank">
+                        View Project
+                    </a>
+
+                </div>
+
+                <div class="ide-preview">
+
+                    <div class="ide-bar">
+
+                        <span class="ide-dot"></span>
+                        <span class="ide-dot"></span>
+                        <span class="ide-dot"></span>
+
+                    </div>
+
+                    <div class="ide-content">
+
+                        <div class="ide-line">
+                            AI Assistant
+                        </div>
+
+                        <br>
+
+                        <div class="ide-line ide-green">
+                            Spring project analysis
+                        </div>
+
+                        <div class="ide-line ide-blue">
+                            Problems and fixes
+                        </div>
+
+                        <div class="ide-line ide-orange">
+                            Code actions
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- THEIA -->
+
+        <div
+            class="tool-panel"
+            id="theia-panel">
+
+            <div class="tool-card">
+
+                <div>
+
+                    <h3>
+                        Spring Tools for Theia
+                    </h3>
+
+                    <p>
+                        Use Spring-aware tooling in Theia-based
+                        development environments.
+                    </p>
+
+                    <a
+                        class="btn btn-primary"
+                        href="https://open-vsx.org/"
+                        target="_blank">
+                        Open VSX Registry
+                    </a>
+
+                </div>
+
+                <div class="ide-preview">
+
+                    <div class="ide-bar">
+
+                        <span class="ide-dot"></span>
+                        <span class="ide-dot"></span>
+                        <span class="ide-dot"></span>
+
+                    </div>
+
+                    <div class="ide-content">
+
+                        <div class="ide-line">
+                            Theia + Spring
+                        </div>
+
+                        <br>
+
+                        <div class="ide-line ide-green">
+                            Spring Boot support
+                        </div>
+
+                        <div class="ide-line ide-blue">
+                            Smart editing
+                        </div>
+
+                        <div class="ide-line ide-orange">
+                            Spring navigation
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<section
+    class="features"
+    id="features">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+                Spring aware
+            </h2>
+
+            <p>
+                Spring Tools understands Spring applications
+                and provides intelligent assistance throughout
+                your development workflow.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    ✦
+                </div>
+
+                <h3>
+                    Deep Spring Support
+                </h3>
+
+                <p>
+                    Tailored support for Spring Framework and
+                    Spring Boot applications with Spring-specific
+                    project knowledge.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    ◈
+                </div>
+
+                <h3>
+                    Smart Code Editing
+                </h3>
+
+                <p>
+                    Get intelligent code completion and editing
+                    assistance for Spring elements and configuration.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    ◎
+                </div>
+
+                <h3>
+                    Runtime Information
+                </h3>
+
+                <p>
+                    Connect source code with running Spring Boot
+                    applications using information exposed by
+                    Spring Boot Actuator.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    ↗
+                </div>
+
+                <h3>
+                    Easy Navigation
+                </h3>
+
+                <p>
+                    Quickly understand and navigate your Spring
+                    application source code.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    ⚙
+                </div>
+
+                <h3>
+                    Spring Initializr
+                </h3>
+
+                <p>
+                    Create a new Spring Boot project quickly and
+                    get from an empty project to running application.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    AI
+                </div>
+
+                <h3>
+                    Ready for AI
+                </h3>
+
+                <p>
+                    Spring Tools can enrich AI-powered development
+                    with additional Spring-specific context and
+                    development actions.
+                </p>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     AI SECTION
+===================================================== -->
+
+<section class="ai-section">
+
+    <div class="container">
+
+        <div class="ai-layout">
+
+            <div class="ai-box">
+
+                <h2>
+                    Built for the
+                    <span>AI era.</span>
+                </h2>
+
+                <p>
+                    Modern Spring development can combine
+                    intelligent coding assistance with deep
+                    understanding of your Spring application.
+                </p>
+
+                <ul class="check-list">
+
+                    <li>
+                        Spring-specific project context
+                    </li>
+
+                    <li>
+                        Embedded development capabilities
+                    </li>
+
+                    <li>
+                        Concrete code actions
+                    </li>
+
+                    <li>
+                        AI-friendly tooling
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div>
+
+                <div class="section-title"
+                     style="text-align:left;margin-bottom:25px;">
+
+                    <h2>
+                        IDE agnostic
+                    </h2>
+
+                    <p>
+                        Use the environment that fits your
+                        workflow — from a full-featured Eclipse
+                        IDE to lightweight editors and AI coding
+                        environments.
+                    </p>
+
+                </div>
+
+                <a
+                    class="btn btn-primary"
+                    href="#tools">
+                    Explore Environments
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ECLIPSE
+===================================================== -->
+
+<section
+    class="eclipse-section"
+    id="eclipse">
+
+    <div class="container">
+
+        <div class="eclipse-header">
+
+            <h2>
+                Spring Tools for Eclipse
+            </h2>
+
+            <p>
+                Free and open source. Download the Spring Tools
+                distribution for your operating system.
+            </p>
+
+        </div>
+
+
+        <div class="download-grid">
+
+            <!-- WINDOWS -->
+
+            <div class="download-card">
+
+                <div class="os-icon">
+                    🪟
+                </div>
+
+                <h4>
+                    Windows
+                </h4>
+
+                <p>
+                    x86_64
+                </p>
+
+                <a
+                    href="https://cdn.spring.io/spring-tools/release/dist/5.4.0.RELEASE/e4.41/spring-tools-for-eclipse-5.4.0.RELEASE-e4.41.0-win32.win32.x86_64.zip"
+                    target="_blank">
+
+                    Download
+
+                </a>
+
+            </div>
+
+
+            <!-- LINUX X86 -->
+
+            <div class="download-card">
+
+                <div class="os-icon">
+                    🐧
+                </div>
+
+                <h4>
+                    Linux
+                </h4>
+
+                <p>
+                    x86_64
+                </p>
+
+                <a
+                    href="https://cdn.spring.io/spring-tools/release/dist/5.4.0.RELEASE/e4.41/spring-tools-for-eclipse-5.4.0.RELEASE-e4.41.0-linux.gtk.x86_64.tar.gz"
+                    target="_blank">
+
+                    Download
+
+                </a>
+
+            </div>
+
+
+            <!-- LINUX ARM -->
+
+            <div class="download-card">
+
+                <div class="os-icon">
+                    🐧
+                </div>
+
+                <h4>
+                    Linux ARM
+                </h4>
+
+                <p>
+                    ARM_64
+                </p>
+
+                <a
+                    href="https://cdn.spring.io/spring-tools/release/dist/5.4.0.RELEASE/e4.41/spring-tools-for-eclipse-5.4.0.RELEASE-e4.41.0-linux.gtk.aarch64.tar.gz"
+                    target="_blank">
+
+                    Download
+
+                </a>
+
+            </div>
+
+
+            <!-- MAC INTEL -->
+
+            <div class="download-card">
+
+                <div class="os-icon">
+                    🍎
+                </div>
+
+                <h4>
+                    macOS
+                </h4>
+
+                <p>
+                    x86_64
+                </p>
+
+                <a
+                    href="https://cdn.spring.io/spring-tools/release/dist/5.4.0.RELEASE/e4.41/spring-tools-for-eclipse-5.4.0.RELEASE-e4.41.0-macosx.cocoa.x86_64.dmg"
+                    target="_blank">
+
+                    Download
+
+                </a>
+
+            </div>
+
+
+            <!-- MAC ARM -->
+
+            <div class="download-card">
+
+                <div class="os-icon">
+                    🍎
+                </div>
+
+                <h4>
+                    macOS
+                </h4>
+
+                <p>
+                    ARM_64
+                </p>
+
+                <a
+                    href="https://cdn.spring.io/spring-tools/release/dist/5.4.0.RELEASE/e4.41/spring-tools-for-eclipse-5.4.0.RELEASE-e4.41.0-macosx.cocoa.aarch64.dmg"
+                    target="_blank">
+
+                    Download
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     GETTING STARTED
+===================================================== -->
+
+<section
+    class="getting-started"
+    id="getting-started">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+                Getting started
+            </h2>
+
+            <p>
+                Go from nothing to a running Spring Boot
+                application quickly.
+            </p>
+
+        </div>
+
+
+        <div class="start-grid">
+
+            <div class="start-card">
+
+                <div class="start-number">
+                    STEP 01
+                </div>
+
+                <h3>
+                    Choose your environment
+                </h3>
+
+                <p>
+                    Pick Eclipse, Visual Studio Code, Cursor,
+                    Theia, or another supported environment.
+                </p>
+
+            </div>
+
+
+            <div class="start-card">
+
+                <div class="start-number">
+                    STEP 02
+                </div>
+
+                <h3>
+                    Create a Spring project
+                </h3>
+
+                <p>
+                    Use Spring Initializr to generate a project
+                    with the dependencies you need.
+                </p>
+
+            </div>
+
+
+            <div class="start-card">
+
+                <div class="start-number">
+                    STEP 03
+                </div>
+
+                <h3>
+                    Start coding
+                </h3>
+
+                <p>
+                    Use Spring-aware navigation, completion,
+                    validation and runtime information while
+                    developing your application.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="cta">
+
+    <h2>
+        Ready to build with Spring?
+    </h2>
+
+    <p>
+        Choose your preferred coding environment and start
+        developing Spring applications with Spring Tools.
+    </p>
+
+    <div>
+
+        <a
+            href="#eclipse"
+            class="btn btn-outline">
+            Download Spring Tools
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <div class="footer-grid">
+
+        <div class="footer-brand">
+
+            <h3>
+                Spring Tools
+            </h3>
+
+            <p>
+                State-of-the-art open source tooling for
+                developing Spring-based applications.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                Spring
+            </h4>
+
+            <a
+                href="https://spring.io/"
+                target="_blank">
+                Spring.io
+            </a>
+
+            <a
+                href="https://spring.io/projects"
+                target="_blank">
+                Projects
+            </a>
+
+            <a
+                href="https://spring.io/guides"
+                target="_blank">
+                Guides
+            </a>
+
+            <a
+                href="https://spring.io/quickstart"
+                target="_blank">
+                Quickstart
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                Resources
+            </h4>
+
+            <a
+                href="https://spring.io/blog"
+                target="_blank">
+                Blog
+            </a>
+
+            <a
+                href="https://spring.io/community"
+                target="_blank">
+                Community
+            </a>
+
+            <a
+                href="https://spring.io/events"
+                target="_blank">
+                Events
+            </a>
+
+            <a
+                href="https://github.com/spring-projects/spring-tools"
+                target="_blank">
+                GitHub
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                Tools
+            </h4>
+
+            <a href="#eclipse">
+                Eclipse
+            </a>
+
+            <a href="#tools">
+                VS Code
+            </a>
+
+            <a href="#tools">
+                Cursor
+            </a>
+
+            <a href="#tools">
+                Theia
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <span>
+            Copyright © 2026 Spring Tools
+        </span>
+
+        <span>
+            Built for Spring developers
+        </span>
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* -----------------------------------------------
+       MOBILE MENU
+    ----------------------------------------------- */
+
+    const menuButton =
+        document.getElementById("menuButton");
+
+    const navLinks =
+        document.getElementById("navLinks");
+
+    menuButton.addEventListener("click", function () {
+
+        navLinks.classList.toggle("open");
+
+    });
+
+
+    /* -----------------------------------------------
+       CLOSE MOBILE MENU
+    ----------------------------------------------- */
+
+    document.querySelectorAll(".nav-links a")
+        .forEach(function (link) {
+
+            link.addEventListener("click", function () {
+
+                navLinks.classList.remove("open");
+
+            });
+
+        });
+
+
+    /* -----------------------------------------------
+       TOOL TABS
+    ----------------------------------------------- */
+
+    const tabs =
+        document.querySelectorAll(".tool-tab");
+
+    const panels =
+        document.querySelectorAll(".tool-panel");
+
+
+    tabs.forEach(function (tab) {
+
+        tab.addEventListener("click", function () {
+
+            const target =
+                tab.getAttribute("data-target");
+
+
+            tabs.forEach(function (item) {
+
+                item.classList.remove("active");
+
+            });
+
+
+            panels.forEach(function (panel) {
+
+                panel.classList.remove("active");
+
+            });
+
+
+            tab.classList.add("active");
+
+
+            const selected =
+                document.getElementById(target);
+
+
+            if (selected) {
+
+                selected.classList.add("active");
+
+            }
+
+        });
+
+    });
+
+
+    /* -----------------------------------------------
+       TOAST
+    ----------------------------------------------- */
+
+    window.showToast = function (message) {
+
+        const toast =
+            document.getElementById("toast");
+
+        toast.textContent = message;
+
+        toast.classList.add("show");
+
+
+        setTimeout(function () {
+
+            toast.classList.remove("show");
+
+        }, 2500);
+
+    };
+
+
+    /* -----------------------------------------------
+       SMOOTH SCROLL
+    ----------------------------------------------- */
+
+    document.querySelectorAll('a[href^="#"]')
+        .forEach(function (anchor) {
+
+            anchor.addEventListener("click", function (event) {
+
+                const href =
+                    anchor.getAttribute("href");
+
+                if (
+                    href &&
+                    href !== "#" &&
+                    document.querySelector(href)
+                ) {
+
+                    event.preventDefault();
+
+                    document.querySelector(href)
+                        .scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+
+                }
+
+            });
+
+        });
+
+
+    /* -----------------------------------------------
+       DOWNLOAD BUTTON FEEDBACK
+    ----------------------------------------------- */
+
+    document.querySelectorAll(".download-card a")
+        .forEach(function (button) {
+
+            button.addEventListener("click", function () {
+
+                showToast(
+                    "Opening the official Spring Tools download..."
+                );
+
+            });
+
+        });
+
+
+    /* -----------------------------------------------
+       SCROLL REVEAL
+    ----------------------------------------------- */
+
+    const revealElements =
+        document.querySelectorAll(
+            ".feature-card, .start-card, .tool-card"
+        );
+
+
+    const observer =
+        new IntersectionObserver(
+            function (entries) {
+
+                entries.forEach(function (entry) {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.style.opacity = "1";
+
+                        entry.target.style.transform =
+                            "translateY(0)";
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: .1
+            }
+        );
+
+
+    revealElements.forEach(function (element) {
+
+        element.style.opacity = "0";
+
+        element.style.transform =
+            "translateY(20px)";
+
+        element.style.transition =
+            "opacity .6s ease, transform .6s ease";
+
+        observer.observe(element);
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
